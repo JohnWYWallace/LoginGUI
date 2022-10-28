@@ -1,0 +1,138 @@
+/*	This is the login page that has 2 labels for the userID and password as well as two text fields, 
+ *	one for the userID and one for the password. It also has two buttons, one to reset the text fields
+ *	and one to login the user
+*/
+
+import java.util.HashMap;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Color;
+
+
+public class LoginPage implements ActionListener{
+	
+	JFrame 			frame			  = 	new JFrame();
+	JButton 		loginButton 	  = 	new JButton("Login");
+	JButton 		resetButton 	  = 	new JButton("Reset");
+	JTextField 		userIDField 	  = 	new JTextField();
+	JPasswordField 	userPasswordField = 	new JPasswordField();
+	JLabel 			userIDLabel 	  = 	new JLabel("Username:");
+	JLabel 			userPasswordLabel = 	new JLabel("Password:");
+	JLabel			messageLabel 	  = 	new JLabel();
+	ImageIcon		image 			  = 	new ImageIcon(getClass().getResource("clear6.png"));
+	JLabel			displayField; 
+		
+	HashMap<String,String> loginInfo = new HashMap<String,String>();
+	
+	//By having this parameter it makes the HashMap globally available to the LoginPage
+	LoginPage(HashMap<String,String> loginInfoOriginal){		
+		
+		loginInfo = loginInfoOriginal;
+		
+		userIDLabel.setBounds					(50,175,75,25);						//This is the component of the userIDLabel
+		userIDLabel.setForeground				(Color.decode("#7BAFD4"));			//Sets the userIDLabel text to specified color
+		
+		userPasswordLabel.setBounds				(50,225,75,25);						//This is the component of userPasswordLabel
+		userPasswordLabel.setForeground			(Color.decode("#7BAFD4"));			//Sets the userPasswordLabel text to specified color
+		
+		messageLabel.setBounds					(125,225,250,35);					//This sets the bounds for the messageLabel
+		messageLabel.setFont					(new Font(null,Font.ITALIC,25));	//This sets the font and font size of messageLabel
+		messageLabel.setForeground				(Color.decode("#7BAFD4"));			//Sets the messageLabel text to specified color
+		
+		userIDField.setBounds					(125,175,200,25); 					//This sets the bounds of the userIDField
+		userPasswordField.setBounds				(125,225,200,25); 					//This sets the bounds of the userPasswordField
+		
+		loginButton.setBounds					(225,275,100,25);					//This sets the bounds of loginButton
+		loginButton.setFocusable				(false);							//This removes the blue outline around the box
+		loginButton.addActionListener			(this); 							//This listens to the users input
+		loginButton.setForeground				(Color.decode("#7BAFD4"));			//Sets the login button text to specified color
+		
+		resetButton.setBounds					(125,275,100,25);					//This sets the bounds of resetButton
+		resetButton.setFocusable				(false);							//This removes the blue outline around the box
+		resetButton.addActionListener			(this); 							//This listens to the users input
+		resetButton.setForeground				(Color.decode("#7BAFD4"));			//Sets the reset button text to specified color
+		
+		displayField 					= 		new JLabel(image);
+		displayField.setBounds					(125,10,200,150);
+		frame.add								(displayField);
+		
+		frame.add								(userIDLabel);						//Adds userIDLabel to the frame
+		frame.add								(userPasswordLabel);				//Adds userPasswordLabel to the frame
+		frame.add								(messageLabel);						//Adds messageLabel to frame
+		frame.add								(userIDField);						//Adds userIDField
+		frame.add								(userPasswordField);				//Adds userPasswordField
+		frame.add								(loginButton);						//Adds loginButton
+		frame.add								(resetButton);						//Adds resetButton
+
+		frame.setTitle							("Clear Vision");					//Sets the title of the window
+		frame.getContentPane().setBackground	(Color.white);						//Sets the color of the background to blue
+		frame.setDefaultCloseOperation			(JFrame.EXIT_ON_CLOSE); 			//This will close when we exit out of it 
+		frame.setSize							(420,420); 							//This sets the sides of the frame
+		frame.setLayout							(null); 							//Ensures that there is not a layout manager
+		frame.setLocationRelativeTo				(null);								//Opens program in the middle of your screen
+		frame.setVisible						(true);								//This enables us to be able to see the frame
+		
+		
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		
+		//This if statement resets the user and password field if it it pressed
+		if(e.getSource()==resetButton) {
+			
+			userIDField.setText			("");		//resets the userIDField
+			userPasswordField.setText	("");		//resets the userPasswordField
+			
+		}
+		
+		
+		//This if statement checks to see if there is a userID and password that you typed in
+		if(e.getSource()==loginButton) {
+			
+			String userID 	= userIDField.getText();								//This temporarily stores the user input to compare to that stored in the HashMap
+			String password = String.valueOf	 (userPasswordField.getPassword());	//This temporarily stores the user input to compare to that stored in the HashMap
+			
+			
+			//This second if statement is within the previous if statement 
+			if(loginInfo.containsKey(userID)) {	//This part checks the HashMap to see if the userID is valid
+				
+				if(loginInfo.get(userID).equals(password)) {	//This checks if the the userID (if validated) corresponds with the associated password
+					
+					messageLabel.setForeground	(Color.blue);			//This is the reward if the userID and password are successful
+					messageLabel.setText		("Login successful");	//This is the reward if the userID and password are successful
+					frame.dispose();									//This closes the LoginPage
+					
+					StudentEmailGUI app = new StudentEmailGUI ();				//Creates an instance this class
+				    app.setVisible  				(true);						//Sets app visible
+				    app.setSize     				(700, 500);					//Sets the size of the app
+				    app.setDefaultCloseOperation 	(JFrame.EXIT_ON_CLOSE);		//Closes the app
+				    app.setLocationRelativeTo		(null);						//Opens the app in the middle of the screen
+					
+				}
+				else {
+					messageLabel.setForeground	(Color.red);			//This sets the color of the message
+					messageLabel.setText		("incorrect Password");	//This is the consequences for entering wrong password
+					}
+			}
+			else {
+				messageLabel.setForeground		(Color.red);			//This sets the color of the message
+				messageLabel.setText			("userID not found");	//This is the consequences for entering wrong userID
+				}
+			
+			}
+		
+		}
+	
+	}
+
