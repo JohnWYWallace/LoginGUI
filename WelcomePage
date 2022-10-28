@@ -1,0 +1,20 @@
+//This is the page that you get if you have a valid userID and password
+import javax.swing.JFrame;
+
+public class WelcomePage {
+	
+	public static void main (String[] args)
+	   {
+		 StudentEmailGUI app = new StudentEmailGUI ();
+	      app.setVisible  				(true);
+	      app.setSize     				(500, 310);
+	      app.setLocation 				(200, 100);
+	      app.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+	      app.setLocationRelativeTo		(null);
+	   }
+	
+	
+	
+	
+}
+
