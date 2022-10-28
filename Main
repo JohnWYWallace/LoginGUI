@@ -1,0 +1,16 @@
+//This runs the program using IDandPasswords, LoginPage, and WelcomePage
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		IDandPasswords idandPasswords = new IDandPasswords();								//This constructor creates an instance of IDandPasswords object
+		
+		LoginPage 	   loginPage 	  = new LoginPage	  (idandPasswords.getLoginInfo());	//This constructor creates instance of LoginPage Object as well as returns the HashMap
+
+		//StudentEmailGUI app = new StudentEmailGUI();
+		
+		
+	}
+}
+
