@@ -1,4 +1,4 @@
-![John's Demo Banner](Documentation/JohnsDemoBanner.png)
+![John's Demo Banner](JohnsDemoBanner.png)
 
 # LoginGUI
 This is a project I presented in my programming 2 class. It is a simple GUI that logs you in if the username and password match in the hash map.
